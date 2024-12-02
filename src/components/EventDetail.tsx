@@ -72,6 +72,30 @@ export default function EventDetail() {
     }
   };
 
+  const renderMedia = (imageUrl: string, title: string) => {
+    if (imageUrl.endsWith('.mp4')) {
+      return (
+        <video 
+          className="w-full h-64 object-cover"
+          autoPlay 
+          muted 
+          loop 
+          playsInline
+        >
+          <source src={imageUrl} type="video/mp4" />
+        </video>
+      );
+    }
+
+    return (
+      <img 
+        src={imageUrl}
+        alt={title}
+        className="w-full h-64 object-cover"
+      />
+    );
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -108,11 +132,7 @@ export default function EventDetail() {
           <div className="lg:col-span-2">
             <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
               <div className="relative">
-                <img 
-                  src={event.imageUrl}
-                  alt={event.title}
-                  className="w-full h-64 object-cover"
-                />
+                {renderMedia(event.imageUrl, event.title)}
                 <button
                   onClick={handleShare}
                   className="absolute top-4 right-4 p-2 bg-white/90 rounded-full shadow-lg hover:bg-white transition-colors duration-300 flex items-center gap-2"
