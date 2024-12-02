@@ -174,16 +174,36 @@ export default function EventCard({
     }
   };
 
+  const renderMedia = () => {
+    if (imageUrl.endsWith('.mp4')) {
+      return (
+        <video 
+          className="w-full h-full object-cover"
+          autoPlay 
+          muted 
+          loop 
+          playsInline
+        >
+          <source src={imageUrl} type="video/mp4" />
+        </video>
+      );
+    }
+    
+    return (
+      <img 
+        src={imageUrl} 
+        alt={title}
+        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+      />
+    );
+  };
+
   return (
     <div className="relative h-full">
       <div className="bg-white rounded-xl shadow-lg transition-all duration-300 h-full flex flex-col hover:shadow-xl hover:-translate-y-1 cursor-pointer" onClick={handleCardClick}>
-        {/* Image Container */}
+        {/* Media Container */}
         <div className="relative h-48 overflow-hidden group rounded-t-xl">
-          <img 
-            src={imageUrl} 
-            alt={title}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-          />
+          {renderMedia()}
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           
           {/* Share Button */}
